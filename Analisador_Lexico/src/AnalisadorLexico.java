@@ -13,6 +13,7 @@ public class AnalisadorLexico {
 	}
 	
 	public Token proximoToken() {
+		String text="";
 		char currentChar;
 		if(isEOF()) {
 			return null;
@@ -29,80 +30,104 @@ public class AnalisadorLexico {
 					if(isSpace(currentChar)) {
 							estado=0;
 					}else if(isSmaller(currentChar)) {
+						text+=currentChar;
 						estado=1;
 					}else if(isEqual(currentChar)) {
+						text+=currentChar;
 						estado=4;
 						
 					}else if(isBigger(currentChar)) {
+						text+=currentChar;
 						estado=6;
 					
 					}else if(isExclamation(currentChar)) {
+						text+=currentChar;
 						estado=9;
 					}else if(isDigit(currentChar)) {
+						text+=currentChar;
 						estado=43;
 						
+					}else if(isAspas(currentChar)) {
+						text+=currentChar;
+						estado=45;
 					}
 						break;
 				case 1:
 					if(isEqual(currentChar)) {
+						text+=currentChar;
 						estado=2;
 						
 					}else {
+						
 						estado=3;
 					}
 					break;
 				case 2:
 					
-					return new Token("<=",TipoToken.OpRelMenorIgual);
+					return new Token("<=",TipoToken.OpRelMenorIgual,text);
 					
 				case 3:
 					
-					return new Token("<",TipoToken.OpRelMenor);
+					return new Token("<",TipoToken.OpRelMenor,text);
 					
 				case 4:
 					if(isEqual(currentChar)) {
+						text+=currentChar;
 						estado=5;
 					}else {
-						return null;//Erro 
+						throw new RuntimeException("Simbolo não reconhecido");
 					}
 					break;
 				case 5:
 					
-					return new Token("==",TipoToken.OpRelIgual);
+					return new Token("==",TipoToken.OpRelIgual,text);
 					
 				case 6:
 					if(isEqual(currentChar)) {
+						text+=currentChar;
 						estado=7;
 					}else {
+						
 						estado=8;
 					}
 					break;
 				case 7:
 					
-					return new Token(">=",TipoToken.OpRelMaiorIgual);
+					return new Token(">=",TipoToken.OpRelMaiorIgual,text);
 				case 8:
 					
-					return new Token(">",TipoToken.OpRelMaior);
+					return new Token(">",TipoToken.OpRelMaior,text);
 				case 9:
 					if(isEqual(currentChar)) {
+						text+=currentChar;
 						estado=10;
 					}else {
-						return null;//Não reconhecido pela linguagem
+						throw new RuntimeException("Simbolo não reconhecido");
 					}
 					break;
 				case 10:
 					
-					return new Token("!=",TipoToken.OpRelDif);
+					return new Token("!=",TipoToken.OpRelDif,text);
 					
 				case 43:
 					if(isDigit(currentChar)) {
+						text+=currentChar;
 						estado=0;
 					}else {
+						
 						estado=44;
 					}
 					break;
 				case 44:
-					return new Token("Real",TipoToken.NumInt);
+					return new Token("Inteiro",TipoToken.NumInt,text);
+				case 45:
+					if(isAspas(currentChar)) {
+						text+=currentChar;
+						return new Token("Cadeia",TipoToken.Cadeia,text);
+					}else {
+						text+=currentChar;
+						estado=45;
+					}
 					
 			}
 			
@@ -119,6 +144,11 @@ public class AnalisadorLexico {
 	
 	private boolean isDigit(char c) {
 		return c>= '0' && c<='9';
+	
+	}
+
+	private boolean isAspas(char c) {
+		return c=='"';
 	
 	}
 	
