@@ -3,6 +3,7 @@ public class Token {
 	public String lexema;
 	public TipoToken padrao;
 	public String texto;
+	public int linha;
 	
 	public Token(String lexema, TipoToken padrao) {
 		this.lexema = lexema;
@@ -16,12 +17,20 @@ public class Token {
 		this.texto=texto;
 		
 	}
+	
+	public Token(String lexema, TipoToken padrao,String texto,int linha) {
+		this.lexema = lexema;
+		this.padrao = padrao;
+		this.texto=texto;
+		this.linha=linha;
+		
+	}
 
 	@Override
 	public String toString() {
 		
 		
-		return "<"+lexema+","+padrao+","+"Valor:"+texto+">";
+		return "<"+lexema+","+padrao+","+"Valor:"+texto+","+"Linha:"+linha+">";
 		
 	}
 
@@ -47,6 +56,14 @@ public class Token {
 
 	public String getTexto() {
 		return texto;
+	}
+
+	public int getLinha() {
+		return linha;
+	}
+
+	public void setLinha(int linha) {
+		this.linha = linha;
 	}
 
 	public void setTexto(String texto) {
