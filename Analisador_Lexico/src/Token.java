@@ -4,7 +4,7 @@ public class Token {
 	public TipoToken padrao;
 	public String texto;
 	public int linha;
-	
+	//Tipos de Token a serem criados
 	public Token(String lexema, TipoToken padrao) {
 		this.lexema = lexema;
 		this.padrao = padrao;
@@ -17,7 +17,7 @@ public class Token {
 		this.texto=texto;
 		
 	}
-	
+	//O Token será gerado com o Tpo de Lexema,o Tipo de Token,o valor do lexema(seus caracteres)
 	public Token(String lexema, TipoToken padrao,String texto,int linha) {
 		this.lexema = lexema;
 		this.padrao = padrao;
@@ -30,7 +30,7 @@ public class Token {
 	public String toString() {
 		
 		
-		return "<"+lexema+","+padrao+","+"Valor:"+texto+","+"Linha:"+linha+">";
+		return "< "+lexema+" , "+padrao+" , "+" Valor: "+texto+" , "+" Linha: "+linha+" >";
 		
 	}
 

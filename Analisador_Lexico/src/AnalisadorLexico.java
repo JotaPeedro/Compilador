@@ -1,28 +1,30 @@
 import java.io.IOException;
 
 public class AnalisadorLexico {
+	//Variaveis a serem utilizadas
 	public LeitorArquivo ldat;
 	private int estado;
 	private int pos;
 	public char conteudo[];
 	public int linha = 1;
-
+ 
+	
 	public AnalisadorLexico(String nome_arq) throws IOException {
 		ldat = new LeitorArquivo(nome_arq);
 		conteudo = ldat.getConteudo();
 	}
-
+//A função analisador lexico faz basicamente todo o processo.Basicamente como um automato que irá fazer a mudança de estados com um switch/case
 	public Token proximoToken() {
-		String text = "";
-		char currentChar;
-		estado = 0;
+		String text = "";//Recebe todo o codigo e armazena em um vetor
+		char currentChar;//Variavel para pegar o caractere atual da string text
+		estado = 0;//Variacoes de estado do automato
 
-		while (true) {
-			currentChar = nextChar();
-			if (currentChar == '\n') linha++;
+		while (true) {//Loop para ficar analisando cada caracter da string text;
+			currentChar = nextChar();//Pega o proximo caractere da string;
+			if (currentChar == '\n') linha++;//Verifica se é um /n para contar as linhas e imprimir nos tokens
 
-			switch (estado) {
-				case 0:
+			switch (estado) {//Basicamente o automato,onde estão todos os estados
+				case 0://Estado 0 é o estado inicial que irá fazer a validação do primeiro caractere e direcionar aos proximos estados
 					if (isSpace(currentChar)) estado = 0;
 					else if (isSmaller(currentChar)) { text += currentChar; estado = 1; }
 					else if (isEqual(currentChar)) { text += currentChar; estado = 4; }
@@ -48,10 +50,13 @@ public class AnalisadorLexico {
 					else if (isOpenP(currentChar)) { text += currentChar; estado = 54; }
 					else if (isCloseP(currentChar)) { text += currentChar; estado = 55; }
 					else if (isO(currentChar)) {text += currentChar; estado = 56; }
-					else if (isEOF()) {Token eoft = new Token("EOF", TipoToken.EOF, "eof");System.out.println(eoft.toString());return null;
+					else if (isEOF()) {Token eoft = new Token("EOF", TipoToken.EOF, "eof");System.out.println(eoft.toString());return null;//Caso o ultimo caractere seja lido como fim do arquivo ele para o loop
 					}else {throw new RuntimeException( "Simbolo>>> "+text+currentChar+" <<<não reconhecido na linha: "+linha);}
-					break;
+					break;//Caso não receba nenhum caracter reconhecido pela linguagem de inicio ele da erro e finaliza.
 
+						//Cada caso abaixo verifica um caractere por vez,caso seja reconhecido,armazena o caractere em um vetor de texto para imprimir,...
+					// ...vai para um proximo estado até chegar um estado final de palavra reconhecida pela linguagem assim imprimindo o token,
+					//Caso encontre algo não reconhecido pela linguagem manda uma mensagem de erro e finaliza o programa.
 				case 1: if (isEqual(currentChar)) { text += currentChar; estado = 2; } else estado = 3; break;
 				case 2: pos--; return new Token("<=", TipoToken.OpRelMenorIgual, text, linha);
 				case 3: pos--; return new Token("<", TipoToken.OpRelMenor, text, linha);
@@ -151,7 +156,7 @@ public class AnalisadorLexico {
 		}
 	}
 
-	// Funções de Verificação
+	// Funções de Verificação são utilizadas para verificar os caracteres,uma para cada caractere disponivel na linguagem.
 
 	private boolean isDigit(char c) { return c >= '0' && c <= '9'; }
 	private boolean isA(char c) { return c == 'A'; }
@@ -186,9 +191,9 @@ public class AnalisadorLexico {
 	private boolean isEqual(char c) { return c == '='; }
 	private boolean isExclamation(char c) { return c == '!'; }
 	private boolean isSpace(char c) {return c == ' ' || c == '\n' || c == '\t' || c == '\r';}
-	private char nextChar() {return (pos < conteudo.length) ? conteudo[pos++] : (char) -1;}
 	private boolean isEOF() {return pos == conteudo.length;}
 	private boolean isOpenP(char c) { return c == '('; }
 	private boolean isCloseP(char c) { return c == ')'; }
-	
+	//Função next Char,avança o caractere para o proximo 
+	private char nextChar() {return (pos < conteudo.length) ? conteudo[pos++] : (char) -1;}
 }

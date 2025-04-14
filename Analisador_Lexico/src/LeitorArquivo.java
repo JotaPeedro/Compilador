@@ -9,8 +9,8 @@ public class LeitorArquivo {
     private int pos;
 
     public LeitorArquivo(String nomeArq) throws IOException {
-        String txtConteudo = new String(Files.readAllBytes(Paths.get(nomeArq)));
-        conteudo = txtConteudo.toCharArray();
+        String txtConteudo = new String(Files.readAllBytes(Paths.get(nomeArq)));//Funcao que lerá todos os bytes do arquivo e armazena em uma string
+        conteudo = txtConteudo.toCharArray();//Manda os dados lidos do texeto para um vetor de caracteres
         pos = 0;
         estado = 0;
     }
