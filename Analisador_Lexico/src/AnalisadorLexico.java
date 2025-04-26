@@ -1,4 +1,8 @@
 import java.io.IOException;
+//JOÃO PEDRO CAVANI MEIRELES RA:2321424
+
+//Classe principal do projeto,o analisador lexico em sim,que faz a leitura dos dados no array e gera o token baseado nos estados
+//da linguagem GYH.
 
 public class AnalisadorLexico {
 	//Variaveis a serem utilizadas

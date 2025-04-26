@@ -1,7 +1,9 @@
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-
+//JOÃO PEDRO CAVANI MEIRELES RA:2321424
+//Classe que abre o arquivo e le os dados,utilizando a função reaAllBytes,ela pega todo o conteudo do arquivo e coloca em um array.
+//para que possa ser lido pelo analisador lexico
 public class LeitorArquivo {
 
     private char[] conteudo;

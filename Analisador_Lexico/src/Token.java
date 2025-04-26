@@ -1,4 +1,5 @@
-
+//JOÃO PEDRO CAVANI MEIRELES RA:2321424
+//A classe token,onde são definidos todos os atributos a serem gerados nos tokens e seus construtores.
 public class Token {
 	public String lexema;
 	public TipoToken padrao;
