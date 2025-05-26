@@ -3,22 +3,22 @@ import java.util.List;
 
 public class Analisador_Sintatico {
 	private final static int Tamanho_Buffer=10;
-	AnalisadorLexico lex;
-	List<Token>bufferTokens;
+	AnalisadorLexico lex;//referência ao analisador léxico
+	List<Token>bufferTokens;//lista com os tokens lidos
 	
-	boolean end=false;
+	boolean end=false;//indica se chegou ao fim do código
 	
-	public Analisador_Sintatico(AnalisadorLexico lex) {
+	public Analisador_Sintatico(AnalisadorLexico lex) {//Recebe o analisador léxico e começa a carregar tokens no buffer
 		this.lex=lex;
 		bufferTokens=new ArrayList<>();
 		lerToken();
 	}
 	
 	private void lerToken() {
-		if(bufferTokens.size()>0) {
+		if(bufferTokens.size()>0) {//Caso tenha algum lixo no buffer ele é removido.
 			bufferTokens.remove(0);
 		}
-		while(bufferTokens.size()<Tamanho_Buffer && !end) {
+		while(bufferTokens.size()<Tamanho_Buffer && !end) {//Le os tokens e adiciona no buffer até encontrar token EOF
 			if (end && !bufferTokens.isEmpty() && bufferTokens.get(bufferTokens.size() - 1).padrao == TipoToken.EOF) {
 	            break;
 	        }
@@ -32,7 +32,7 @@ public class Analisador_Sintatico {
 		}
 	}
 		
-		Token lookahead(int k){
+		Token lookahead(int k){//Retorna o k-esimo token a frente no buffer
 			if (bufferTokens.isEmpty()) {
 				return null;
 			}
@@ -43,12 +43,12 @@ public class Analisador_Sintatico {
 		}
 	
 
-		void match(TipoToken tipo) {
+		void match(TipoToken tipo) {//Compara o proximo token com o token esperado pela linguagem,se bate consome o token se não da erro de sintatico
 			if(lookahead(1).padrao==tipo) {
-				System.out.println("Match"+lookahead(1));
+				System.out.println("Match"+lookahead(1)+'\n');
 				lerToken();
 			}else {
-				throw new RuntimeException( "ERRO SINANTICO NA LINHA :"+lookahead(1).linha+" Token do tipo>> "+lookahead(1).padrao+"conteudo "+lookahead(1).texto+ " inesperado");
+				throw new RuntimeException( "ERRO SINANTICO NA LINHA :"+lookahead(1).linha+" Token do tipo>> "+lookahead(1).padrao+" << conteudo>>  "+lookahead(1).texto+ " << inesperado");
 			}
 		}
 
@@ -89,7 +89,7 @@ public class Analisador_Sintatico {
 			} else if (lookahead(1).padrao == TipoToken.PCReal) {
 				match(TipoToken.PCReal);
 			} else {
-				throw new RuntimeException( "ERRO SINANTICO NA LINHA :"+lookahead(1).linha+" Token do tipo>> "+lookahead(1).padrao+"conteudo "+lookahead(1).texto+ " inesperado");
+				throw new RuntimeException( "ERRO SINANTICO NA LINHA :"+lookahead(1).linha+" Token do tipo>> "+lookahead(1).padrao+" << conteudo>>  "+lookahead(1).texto+ " << inesperado");
 			}
 		}
 
@@ -116,7 +116,7 @@ public class Analisador_Sintatico {
 				match(TipoToken.OpAritSub);
 				TermoAritmetico();
 			} else {
-				throw new RuntimeException( "ERRO SINANTICO NA LINHA :"+lookahead(1).linha+" Token do tipo>> "+lookahead(1).padrao+"conteudo "+lookahead(1).texto+ " inesperado");
+				throw new RuntimeException( "ERRO SINANTICO NA LINHA :"+lookahead(1).linha+" Token do tipo>> "+lookahead(1).padrao+" << conteudo>>  "+lookahead(1).texto+ " << inesperado");
 			}
 		}
 
@@ -143,7 +143,7 @@ public class Analisador_Sintatico {
 				match(TipoToken.OpAritDiv);
 				FatorAritmetico();
 			} else {
-				throw new RuntimeException( "ERRO SINANTICO NA LINHA :"+lookahead(1).linha+" Token do tipo>> "+lookahead(1).padrao+"conteudo "+lookahead(1).texto+ " inesperado");
+				throw new RuntimeException( "ERRO SINANTICO NA LINHA :"+lookahead(1).linha+" Token do tipo>> "+lookahead(1).padrao+" << conteudo>>  "+lookahead(1).texto+ " << inesperado");
 			}
 		}
 
@@ -159,7 +159,7 @@ public class Analisador_Sintatico {
 					match(TipoToken.FechaPar);
 					break;
 				default:
-					throw new RuntimeException( "ERRO SINANTICO NA LINHA :"+lookahead(1).linha+" Token do tipo>> "+lookahead(1).padrao+"conteudo "+lookahead(1).texto+ " inesperado");
+					throw new RuntimeException( "ERRO SINANTICO NA LINHA :"+lookahead(1).linha+" Token do tipo>> "+lookahead(1).padrao+" << conteudo>>  "+lookahead(1).texto+ " << inesperado");
 			}
 		}
 
@@ -206,7 +206,7 @@ public class Analisador_Sintatico {
 			} else if (lookahead(1).padrao == TipoToken.OpBoolOu) {
 				match(TipoToken.OpBoolOu);
 			} else {
-				throw new RuntimeException( "ERRO SINANTICO NA LINHA :"+lookahead(1).linha+" Token do tipo>> "+lookahead(1).padrao+"conteudo "+lookahead(1).texto+ " inesperado");
+				throw new RuntimeException( "ERRO SINANTICO NA LINHA :"+lookahead(1).linha+" Token do tipo>> "+lookahead(1).padrao+" << conteudo>>  "+lookahead(1).texto+ " << inesperado");
 			}
 		}
 
@@ -233,7 +233,7 @@ public class Analisador_Sintatico {
 				case PCEnqto: ComandoRepeticao(); break;
 				case PCIni: SubAlgoritmo(); break;
 				default:
-					throw new RuntimeException( "ERRO SINANTICO NA LINHA :"+lookahead(1).linha+" Token do tipo>> "+lookahead(1).padrao+"conteudo "+lookahead(1).texto+ " inesperado");
+					throw new RuntimeException( "ERRO SINANTICO NA LINHA :"+lookahead(1).linha+" Token do tipo>> "+lookahead(1).padrao+" << conteudo>>  "+lookahead(1).texto+ " << inesperado");
 			}
 		}
 
@@ -258,7 +258,7 @@ public class Analisador_Sintatico {
 			} else if (lookahead(1).padrao == TipoToken.Cadeia) {
 				match(TipoToken.Cadeia);
 			} else {
-				throw new RuntimeException( "ERRO SINANTICO NA LINHA :"+lookahead(1).linha+" Token do tipo>> "+lookahead(1).padrao+"conteudo "+lookahead(1).texto+ " inesperado");
+				throw new RuntimeException( "ERRO SINANTICO NA LINHA :"+lookahead(1).linha+" Token do tipo>> "+lookahead(1).padrao+" << conteudo>>  "+lookahead(1).texto+ " << inesperado");
 			}
 		}
 

@@ -31,7 +31,7 @@ public class Token {
 	public String toString() {
 		
 		
-		return "< "+lexema+" , "+padrao+" , "+" Valor: "+texto+" , "+" Linha: "+linha+" >";
+		return "< "+lexema+" / "+padrao+" / "+"  "+texto+" / "+" Linha: "+linha+" >";
 		
 	}
 

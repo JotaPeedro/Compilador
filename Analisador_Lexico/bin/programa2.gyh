@@ -1,4 +1,5 @@
-#Erro Léxico: desconhecido ENTO
+#Programa nao tem erro sintático
+
 :DEC
 num1:INT
 num2:INT
@@ -12,11 +13,11 @@ LER num2
 LER num3
 SE num1 > num2 ENTAO
    INI
-      aux := 2. 4+3-4+5-6*5-1.6
+      aux := 2+3-4+5-6*5-1
       num2 := num1
       num1 := aux
    FIM 
-SE num1 > num3 E num2 <= num4 E num1 > 3 OU num2 != num4 ENTO
+SE num1 > num3 E num2 <= num4 E num1 > 3 OU num2 != num4 ENTAO
    INI
       aux := num3
       num3 := num1
@@ -28,7 +29,6 @@ SE num2 > num3 ENTAO
       num3:= num2
      num2:=aux
    FIM
-IMPRIMIR "Acabou o programa"
 IMPRIMIR num1
 IMPRIMIR num2
 IMPRIMIR num3

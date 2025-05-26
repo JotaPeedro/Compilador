@@ -1,7 +1,7 @@
-#Erro Léxico: <INt> nao eh Palavra Chave
+#Programa nao tem erro sintático
 
 :DEC
-parametro:INt
+parametro:INT
 fatorial:INT
 
 :PROG 
@@ -9,10 +9,10 @@ fatorial:INT
 LER parametro
 fatorial := parametro 
 SE parametro == 0 ENTAO fatorial := 1
-ENQTO parametro <> 1
-INI
-fatorial := fatorial * (parametro - 1) 
-parametro := parametro - 1
-FIM
+ENQTO parametro > 1
+ INI
+  fatorial := fatorial * (parametro - 1) 
+  parametro := parametro - 1
+ FIM
 IMPRIMIR fatorial
 IMPRIMIR "Oi"

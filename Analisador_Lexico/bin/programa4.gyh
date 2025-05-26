@@ -1,7 +1,7 @@
-#Programa nao tem erro lexico
+#Erro sintático: 'Inesperado Token: Var' ou 'Inesperado Lexema: fatorial' ou 'Esperado TipoVar' 
 
 :DEC
-parametro:INT
+parametro:
 fatorial:INT
 
 :PROG 
@@ -10,9 +10,9 @@ LER parametro
 fatorial := parametro 
 SE parametro == 0 ENTAO fatorial := 1
 ENQTO parametro > 1
-INI
-fatorial := fatorial * (parametro - 1) 
-parametro := parametro - 1
-FIM
+ INI
+  fatorial := fatorial * (parametro - 1) 
+  parametro := parametro - 1
+ FIM
 IMPRIMIR fatorial
 IMPRIMIR "Oi"
