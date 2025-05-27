@@ -18,7 +18,7 @@ public class AnalisadorLexico {
 		ldat = new LeitorArquivo(nome_arq);
 		conteudo = ldat.getConteudo();
 	}
-//A função analisador lexico faz basicamente todo o processo.Basicamente como um automato que irá fazer a mudança de estados com um switch/case
+//A função analisador lexico faz basicamente todo o processo.Atua como um automato que irá fazer a mudança de estados com um switch/case
 	public Token proximoToken() {
 		if (eofJaEmitidoComoToken) {
            return new Token("EOF", TipoToken.EOF, "eof", linha);

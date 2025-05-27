@@ -1,3 +1,7 @@
+//JOÃO PEDRO CAVANI MEIRELES RA:2321424
+//Classe analisador sintátio,onde é definido todas as regras da gramatica e como é feita a analise dos tokens gerando os resultados
+
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,11 +32,11 @@ public class Analisador_Sintatico {
 				end=true;
 				
 			}
-			System.out.println("Lido"+proximo);
+			System.out.println("Lido"+proximo);//Informa qual token foi lido
 		}
 	}
 		
-		Token lookahead(int k){//Retorna o k-esimo token a frente no buffer
+		Token lookahead(int k){//Retorna o k-esimo token a frente no buffer,caso o buffer nao esteja vazio
 			if (bufferTokens.isEmpty()) {
 				return null;
 			}
