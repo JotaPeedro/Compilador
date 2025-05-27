@@ -65,6 +65,8 @@ public class Analisador_Sintatico {
 			match(TipoToken.Delim);
 			match(TipoToken.PCProg);
 			listaComandos();
+			
+			System.out.println('\n'+"Programa sem nenhum Erro Sintatico");
 		}
 		// ListaDeclaracoes → Declaracao LD;
 		public void listaDeclaracoes() {
@@ -311,4 +313,3 @@ public class Analisador_Sintatico {
 	}
 	
 	
-
