@@ -25,7 +25,7 @@ public class Main {
 			System.out.println("Os tokens serao gerados da seguinte forma:"+'\n'+"<Tipo de Token / Tipo de Operador / Conteudo do Token / Linha que se encontra no programa original >"+"\n");
 			
 			//Somente analisador léxico
-			AnalisadorLexico lex=new AnalisadorLexico("programa1.gyh");//Funcao que lerá o arquivo informado
+			AnalisadorLexico lex=new AnalisadorLexico(args[0]);//Funcao que lerá o arquivo informado
 			Token t = lex.proximoToken();//Cria o token e faz a analise do primeiro token
 				while(t != null && t.padrao != TipoToken.EOF) {//While que fica repetindo até não terem mais tokens gerados;
 				    	t = lex.proximoToken();	
@@ -43,7 +43,7 @@ public class Main {
 		System.out.println("Match <Token> :Sequencia de Tokens correta identificada pelo analisador sintático"+'\n');
 		
 		
-		AnalisadorLexico lex=new AnalisadorLexico("programa1.gyh");//Funcao que lerá o arquivo informado
+		AnalisadorLexico lex=new AnalisadorLexico(args[0]);//Funcao que lerá o arquivo informado
 		Analisador_Sintatico sint=new Analisador_Sintatico(lex);
 		sint.Programa();
 		
